@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /root/kapischool
+cd kapischool-back
 git pull
 
 pm2 stop src/index.js
