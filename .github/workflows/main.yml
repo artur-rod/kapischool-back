@@ -21,7 +21,7 @@ jobs:
       - name: Deploy to EC2
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: bash deploy.sh
+          command: bash kapischool-back/deploy.sh
           username: root
           host: ${{ secrets.HOST }}
           privateKey: ${{ secrets.PRIVATE_KEY }}
