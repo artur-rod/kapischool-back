@@ -24,4 +24,4 @@ jobs:
           command: bash deploy.sh
           username: root
           host: ${{ secrets.HOST }}
-          privateKey: ${{ secrets.PUBLIC_KEY }}
+          privateKey: ${{ secrets.PRIVATE_KEY }}
