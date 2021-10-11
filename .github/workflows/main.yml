@@ -1,0 +1,27 @@
+name: CI-CD
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
+  CD:
+    needs: [CI]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to EC2
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: bash deploy.sh
+          username: root
+          host: ${{ secrets.HOST }}
+          privateKey: ${{ secrets.PRIVATE_KEY }}
