@@ -17,9 +17,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-  course: {
-    type: "string",
-  },
   createdAt: {
     type: Date,
     default: Date.now,

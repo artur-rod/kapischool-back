@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Profile = require("../models/profile");
 require("dotenv").config();
 
 function generateToken(params = {}) {
@@ -18,8 +19,10 @@ const user = {
     }
 
     const user = await User.create(data);
-    const token = generateToken({ id: user.id });
+    const token = generateToken({ id: user._id });
     user.password = undefined;
+
+    const profile = await Profile.create({ user: user._id });
 
     return { user, token };
   },

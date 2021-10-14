@@ -6,7 +6,8 @@ const userAuthController = {
       const register = await user.registration(req.body);
       res.send(register);
     } catch (err) {
-      return res.status(400).send({ error: "Registration Failed" });
+      console.log(err);
+      return res.status(400).send({ error: err.data });
     }
   },
 

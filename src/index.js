@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/user", routes.user);
 app.use("/admin", routes.admin);
 app.use("/courses", routes.courses);
+app.use("/profile", routes.profile);
 
 app.use("/balance", routes.balance);
 app.use("/charges", routes.charges);
