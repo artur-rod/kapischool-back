@@ -1,4 +1,4 @@
-const Juno = require("../static/lib/payments/juno");
+const Juno = require("../../vendors/juno");
 
 const payments = {
   create: async (body) => {

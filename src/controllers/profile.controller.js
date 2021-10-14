@@ -1,4 +1,4 @@
-const { profile } = require("../services");
+const { profile } = require("../core/services");
 
 const profileController = {
   coursesUpdate: async (req, res) => {

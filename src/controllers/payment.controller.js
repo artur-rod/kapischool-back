@@ -1,4 +1,4 @@
-const { payments } = require("../services");
+const { payments } = require("../core/services");
 
 const paymentController = {
   create: async (req, res) => {

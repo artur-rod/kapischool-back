@@ -1,4 +1,4 @@
-const { balance } = require("../services");
+const { balance } = require("../core/services");
 
 const balanceController = {
   list: async (req, res) => {

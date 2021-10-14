@@ -1,4 +1,4 @@
-const Juno = require("../static/lib/payments/juno");
+const Juno = require("../../vendors/juno");
 
 const charges = {
   list: async () => {

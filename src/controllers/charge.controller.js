@@ -1,4 +1,4 @@
-const { charges } = require("../services");
+const { charges } = require("../core/services");
 
 const chargeController = {
   list: async (req, res) => {

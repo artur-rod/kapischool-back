@@ -1,4 +1,4 @@
-const { courses } = require("../services");
+const { courses } = require("../core/services");
 
 const coursesController = {
   create: async (req, res) => {
