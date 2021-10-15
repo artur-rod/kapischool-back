@@ -18,4 +18,6 @@ app.use("/balance", routes.balance);
 app.use("/charges", routes.charges);
 app.use("/payment", routes.payment);
 
+app.use("/email", routes.email);
+
 app.listen(process.env.SERVER_PORT);

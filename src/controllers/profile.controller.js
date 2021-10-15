@@ -11,11 +11,14 @@ const profileController = {
   },
 
   addressUpdate: async (req, res) => {
+    console.log(req.body);
     try {
       const update = await profile.addressUpdate(req.body);
+      console.log(update);
       res.send(update);
     } catch (err) {
-      res.status(400).send({ error: err.message });
+      console.log(err);
+      res.status(400).send({ error: err });
     }
   },
 

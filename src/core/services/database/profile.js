@@ -1,29 +1,18 @@
-const User = require("../models/user");
-const Profile = require("../models/profile");
+const User = require("../../../models/user");
+const Profile = require("../../../models/profile");
 
 const profile = {
   coursesUpdate: async (body) => {
-    const { email, paymentId } = body;
+    const { email, paymentId } = await body;
     const findUser = await User.findOne({ email: email });
     const findProfile = await Profile.findOne({ user: findUser._id });
 
     const courseUpdate = await Profile.updateOne(
       { user: findUser._id },
-      { courses: [...findProfile.courses, paymentId] },
-      function (err, profile) {
-        if (err) {
-          return { error: err };
-        } else {
-          if (profile.acknowledged == true) {
-            return { update: "Courses updated" };
-          } else {
-            return { update: "Something went wrong" };
-          }
-        }
-      }
+      { courses: [...findProfile.courses, paymentId] }
     );
 
-    return { courseUpdate };
+    return { message: "ok" };
   },
 
   addressUpdate: async (body) => {
@@ -31,22 +20,11 @@ const profile = {
     const findUser = await User.findOne({ email: email });
     const findProfile = await Profile.findOne({ user: findUser._id });
 
-    const addressUpdate = Profile.updateOne(
+    const addressUpdate = await Profile.updateOne(
       { user: findUser._id },
-      { address: address },
-      function (err, profile) {
-        if (err) {
-          return { error: err };
-        } else {
-          if (profile.acknowledged == true) {
-            return { update: "Address updated" };
-          } else {
-            return { update: "Something went wrong" };
-          }
-        }
-      }
+      { address: address }
     );
-    return { addressUpdate };
+    return { message: "ok" };
   },
 
   show: async (body) => {

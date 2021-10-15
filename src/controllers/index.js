@@ -7,4 +7,15 @@ const admin = require("./admin-auth.controller");
 const courses = require("./courses.controller");
 const profile = require("./profile.controller");
 
-module.exports = { balance, charges, payment, user, admin, courses, profile };
+const email = require("./mail.controller");
+
+module.exports = {
+  balance,
+  charges,
+  payment,
+  user,
+  admin,
+  courses,
+  profile,
+  email,
+};

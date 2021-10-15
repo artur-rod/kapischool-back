@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Admin = require("../models/admin");
+const Admin = require("../../../models/admin");
 require("dotenv").config();
 
 function generateToken(params = {}) {

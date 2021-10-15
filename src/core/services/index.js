@@ -7,4 +7,15 @@ const admin = require("./database/admin");
 const courses = require("./database/courses");
 const profile = require("./database/profile");
 
-module.exports = { balance, charges, payments, user, admin, courses, profile };
+const emails = require("./mail/emails");
+
+module.exports = {
+  balance,
+  charges,
+  payments,
+  user,
+  admin,
+  courses,
+  profile,
+  emails,
+};
