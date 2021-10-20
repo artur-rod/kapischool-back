@@ -20,4 +20,6 @@ app.use("/payment", routes.payment);
 
 app.use("/email", routes.email);
 
+app.use("/address", routes.address);
+
 app.listen(process.env.SERVER_PORT);

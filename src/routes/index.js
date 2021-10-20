@@ -9,6 +9,8 @@ const payment = require("./payment");
 
 const email = require("./email");
 
+const address = require("./address");
+
 module.exports = {
   admin,
   user,
@@ -18,4 +20,5 @@ module.exports = {
   charges,
   payment,
   email,
+  address,
 };

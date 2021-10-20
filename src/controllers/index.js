@@ -9,6 +9,8 @@ const profile = require("./profile.controller");
 
 const email = require("./mail.controller");
 
+const address = require("./address.controller");
+
 module.exports = {
   balance,
   charges,
@@ -18,4 +20,5 @@ module.exports = {
   courses,
   profile,
   email,
+  address,
 };

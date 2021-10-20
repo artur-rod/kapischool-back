@@ -6,21 +6,18 @@ const email = {
   registration: async (email) => {
     const msg = {
       to: await email,
-      from: "artur.rodrigues@linkapi.com.br",
+      from: "artur.rodrigues@linkapi.com",
       subject: "KapiSchool Registration",
       text: "Registration Successfull",
       html: "<h2>Registration Successfull</h2>",
     };
-    sgMail
-      .send(msg)
-      .then((response) => {
-        console.log("email sent");
-        return response;
-      })
-      .catch((error) => {
-        console.log(error);
-        return error;
-      });
+    try {
+      await sgMail.send(msg);
+
+      return { message: "Email sent" };
+    } catch (err) {
+      return err;
+    }
   },
   purchase: async (email) => {
     const msg = {
