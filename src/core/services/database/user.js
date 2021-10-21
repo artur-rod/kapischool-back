@@ -15,14 +15,13 @@ const user = {
     const { email } = data;
 
     if (await User.findOne({ email })) {
-      return { error: "User already exists" };
+      throw { error: "User already exists" };
     }
-
     const user = await User.create(data);
     const token = generateToken({ id: user._id });
     user.password = undefined;
 
-    const profile = await Profile.create({ user: user._id });
+    await Profile.create({ user: user._id });
 
     return { user, token };
   },
@@ -32,10 +31,10 @@ const user = {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return { error: "User not found" };
+      throw { error: "User not found" };
     }
     if (!(await bcrypt.compare(password, user.password))) {
-      return { error: "Invalid password" };
+      throw { error: "Wrong Password" };
     }
 
     const token = generateToken({ id: user.id });

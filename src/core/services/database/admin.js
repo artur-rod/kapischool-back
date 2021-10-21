@@ -14,7 +14,7 @@ const admin = {
     const { email } = data;
 
     if (await Admin.findOne({ email })) {
-      return { error: "User already exists" };
+      throw { error: "User already exists" };
     }
 
     const admin = await Admin.create(data);
@@ -29,10 +29,10 @@ const admin = {
     const admin = await Admin.findOne({ email }).select("+password");
 
     if (!admin) {
-      return { error: "User not found" };
+      throw { error: "User not found" };
     }
     if (!(await bcrypt.compare(password, admin.password))) {
-      return { error: "Invalid password" };
+      throw { error: "Invalid password" };
     }
 
     const token = generateToken({ id: admin.id });

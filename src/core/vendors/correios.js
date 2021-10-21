@@ -11,7 +11,7 @@ const consultaCEP = {
 
       return getCEP[0].return;
     } catch (err) {
-      return { error: err };
+      return { status: err.response.status, error: err.root };
     }
   },
 };

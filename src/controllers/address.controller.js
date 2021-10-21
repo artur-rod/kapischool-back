@@ -1,4 +1,5 @@
 const { address } = require("../core/services");
+const sentryError = require("../core/error-handler");
 
 const addressController = {
   get: async (req, res) => {
@@ -6,7 +7,10 @@ const addressController = {
       const getAddress = await address.get(req.body);
       res.send(getAddress);
     } catch (err) {
-      return res.status(400).send({ error: err });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 };

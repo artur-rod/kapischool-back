@@ -1,4 +1,5 @@
 const { payments } = require("../core/services");
+const sentryError = require("../core/error-handler");
 
 const paymentController = {
   create: async (req, res) => {
@@ -6,7 +7,10 @@ const paymentController = {
       const payment = await payments.create(req.body);
       res.send(payment);
     } catch (err) {
+      await sentryError(err);
       res.status(err.status).send({ error: err.details });
+    } finally {
+      req.transaction.finish();
     }
   },
 
@@ -17,7 +21,10 @@ const paymentController = {
       const refund = await payments.refund(refundBody, refundId);
       res.send(refund);
     } catch (err) {
+      await sentryError(err);
       res.status(err.status).send({ error: err });
+    } finally {
+      req.transaction.finish();
     }
   },
 };

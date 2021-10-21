@@ -1,4 +1,5 @@
 const { profile } = require("../core/services");
+const sentryError = require("../core/error-handler");
 
 const profileController = {
   coursesUpdate: async (req, res) => {
@@ -6,7 +7,10 @@ const profileController = {
       const update = await profile.coursesUpdate(req.body);
       res.send(update);
     } catch (err) {
-      res.status(400).send({ error: err.message });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 
@@ -17,8 +21,10 @@ const profileController = {
       console.log(update);
       res.send(update);
     } catch (err) {
-      console.log(err);
-      res.status(400).send({ error: err });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 
@@ -27,7 +33,10 @@ const profileController = {
       const showProfile = await profile.show(req.body);
       res.send(showProfile);
     } catch (err) {
-      res.status(400).send({ error: err.message });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 };

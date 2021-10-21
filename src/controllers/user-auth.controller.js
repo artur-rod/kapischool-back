@@ -1,4 +1,5 @@
 const { user } = require("../core/services");
+const sentryError = require("../core/error-handler");
 
 const userAuthController = {
   registration: async (req, res) => {
@@ -6,8 +7,10 @@ const userAuthController = {
       const register = await user.registration(req.body);
       res.send(register);
     } catch (err) {
-      console.log(err);
-      return res.status(400).send({ error: err.data });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 
@@ -16,7 +19,10 @@ const userAuthController = {
       const login = await user.login(req.body);
       res.send(login);
     } catch (err) {
-      return res.status(400).send({ error: "Login error" });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 };

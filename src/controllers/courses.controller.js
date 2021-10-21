@@ -1,4 +1,5 @@
 const { courses } = require("../core/services");
+const sentryError = require("../core/error-handler");
 
 const coursesController = {
   create: async (req, res) => {
@@ -6,7 +7,10 @@ const coursesController = {
       const courseCreation = await courses.create(req.body);
       res.send(courseCreation);
     } catch (err) {
-      res.status(400).send({ error: err.message });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 
@@ -15,7 +19,10 @@ const coursesController = {
       const coursesList = await courses.showAll();
       res.send(coursesList);
     } catch (err) {
-      res.status(400).send({ error: err.message });
+      await sentryError(err);
+      res.status(400).send(err);
+    } finally {
+      req.transaction.finish();
     }
   },
 };
