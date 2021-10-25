@@ -8,8 +8,9 @@ const router = Router();
 router.use(sentryMiddleware);
 router.use(authMiddleware);
 
-router.get("/", profile.show);
+router.post("/", profile.show);
 router.post("/address", profile.addressUpdate);
 router.post("/courses", profile.coursesUpdate);
+router.put("/courses", profile.deleteCourse);
 
 module.exports = router;

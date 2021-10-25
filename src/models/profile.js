@@ -5,9 +5,15 @@ const profileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  courses: {
-    type: Array,
-  },
+  courses: [
+    {
+      details: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      },
+      paymentId: "String",
+    },
+  ],
   address: {
     type: [],
   },

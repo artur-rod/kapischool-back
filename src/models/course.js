@@ -18,6 +18,10 @@ const courseSchema = new mongoose.Schema({
     type: "string",
     required: true,
   },
+  link: {
+    type: "string",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
