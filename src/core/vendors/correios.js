@@ -1,17 +1,28 @@
-const soap = require("soap");
+const axios = require("axios");
+const parser = require("xml2json");
 require("dotenv").config();
 
 const consultaCEP = {
-  async postCode(cep) {
+  async postCode(body) {
     const url = process.env.CORREIOS_API_URL;
+    const cep = body.cep.toString();
+
+    const request = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                      <soapenv:Body>
+                        <consultaCEP xmlns="http://cliente.bean.master.sigep.bsb.correios.com.br/">
+                          <cep xmlns="">"${cep}"</cep>
+                        </consultaCEP>
+                      </soapenv:Body>
+                    </soapenv:Envelope>`;
 
     try {
-      const correios = await soap.createClientAsync(url);
-      const getCEP = await correios.consultaCEPAsync(cep);
+      const { data } = await axios.post(url, request);
 
-      return getCEP[0].return;
+      const response = JSON.parse(parser.toJson(data));
+      console.log(typeof response);
+      return response["soap:Envelope"];
     } catch (err) {
-      return { status: err.response.status, error: err.root };
+      console.log(err);
     }
   },
 };
