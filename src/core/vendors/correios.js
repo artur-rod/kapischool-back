@@ -1,5 +1,6 @@
-const axios = require("axios");
-const parser = require("xml2json");
+const axios = require("axios").default;
+const xmlToJson = require("xml-to-json-stream");
+const parser = xmlToJson({ attributeMode: false });
 require("dotenv").config();
 
 const consultaCEP = {
@@ -16,13 +17,20 @@ const consultaCEP = {
                     </soapenv:Envelope>`;
 
     try {
-      const { data } = await axios.post(url, request);
+      const { data } = await axios.post(url, request, {
+        headers: {
+          "Content-type": "text/xml;charset=utf-8",
+        },
+      });
 
-      const response = JSON.parse(parser.toJson(data));
-      console.log(typeof response);
-      return response["soap:Envelope"];
+      const response = parser.xmlToJson(data, (error, json) => {
+        if (error) return error;
+        return json;
+      });
+      return response["soap:Envelope"]["soap:Body"]["ns2:consultaCEPResponse"]
+        .return;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   },
 };
