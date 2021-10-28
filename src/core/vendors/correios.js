@@ -7,11 +7,12 @@ const consultaCEP = {
   async postCode(body) {
     const url = process.env.CORREIOS_API_URL;
     const cep = body.cep;
+    console.log(typeof cep);
 
     const request = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
                       <soapenv:Body>
                         <consultaCEP xmlns="http://cliente.bean.master.sigep.bsb.correios.com.br/">
-                          <cep xmlns="">"${cep}"</cep>
+                          <cep xmlns="">${cep}</cep>
                         </consultaCEP>
                       </soapenv:Body>
                     </soapenv:Envelope>`;
