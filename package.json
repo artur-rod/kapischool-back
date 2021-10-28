@@ -24,6 +24,7 @@
     "nodemon": "^2.0.12",
     "pm2": "^5.1.2",
     "soap": "^0.42.0",
-    "xml-to-json-stream": "^1.1.0"
+    "xml-to-json-stream": "^1.1.0",
+    "xml2json": "^0.12.0"
   }
 }
