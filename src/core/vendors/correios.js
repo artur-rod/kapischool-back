@@ -24,11 +24,12 @@ const consultaCEP = {
       });
 
       const response = parser.xmlToJson(data, (error, json) => {
-        if (error) return error;
-        return json;
+        if (error) throw { error: error };
+        return { json: json };
       });
-      return response["soap:Envelope"]["soap:Body"]["ns2:consultaCEPResponse"]
-        .return;
+      return response;
+      // ["soap:Envelope"]["soap:Body"]["ns2:consultaCEPResponse"]
+      //   .return;
     } catch (err) {
       throw err;
     }
