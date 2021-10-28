@@ -6,16 +6,16 @@ require("dotenv").config();
 const consultaCEP = {
   async postCode(body) {
     const url = process.env.CORREIOS_API_URL;
-    const cep = body.cep;
-    console.log(typeof cep);
+    const cep = body.cep.toString();
 
-    const request = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-                      <soapenv:Body>
-                        <consultaCEP xmlns="http://cliente.bean.master.sigep.bsb.correios.com.br/">
-                          <cep xmlns="">${cep}</cep>
-                        </consultaCEP>
-                      </soapenv:Body>
-                    </soapenv:Envelope>`;
+    const request = `
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+      <soapenv:Body>
+        <consultaCEP xmlns="http://cliente.bean.master.sigep.bsb.correios.com.br/">
+          <cep xmlns="">"${cep}"</cep>
+        </consultaCEP>
+      </soapenv:Body>
+    </soapenv:Envelope>`;
 
     try {
       const { data } = await axios.post(url, request, {
@@ -25,12 +25,11 @@ const consultaCEP = {
       });
 
       const response = parser.xmlToJson(data, (error, json) => {
-        if (error) throw { error: error };
-        return { json: json };
+        if (error) throw error;
+        return json;
       });
-      return response;
-      // ["soap:Envelope"]["soap:Body"]["ns2:consultaCEPResponse"]
-      //   .return;
+      return response["soap:Envelope"]["soap:Body"]["ns2:consultaCEPResponse"]
+        .return;
     } catch (err) {
       throw err;
     }
