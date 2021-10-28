@@ -6,7 +6,7 @@ require("dotenv").config();
 const consultaCEP = {
   async postCode(body) {
     const url = process.env.CORREIOS_API_URL;
-    const cep = body.cep.toString();
+    const cep = body.cep;
 
     const request = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
                       <soapenv:Body>
