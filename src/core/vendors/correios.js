@@ -1,5 +1,6 @@
 const axios = require("axios").default;
-const parser = require("xml2json");
+const xmlToJson = require("xml-to-json-stream");
+const parser = xmlToJson({ attributeMode: false });
 require("dotenv").config();
 
 const consultaCEP = {
@@ -23,9 +24,11 @@ const consultaCEP = {
         },
       });
 
-      const response = parser.toJson(data, {
-        object: true,
+      const response = parser.xmlToJson(data, (error, json) => {
+        if (error) throw error;
+        return json;
       });
+
       return response["soap:Envelope"]["soap:Body"]["ns2:consultaCEPResponse"]
         .return;
     } catch (err) {
