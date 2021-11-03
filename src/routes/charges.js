@@ -10,6 +10,6 @@ router.use(authMiddleware);
 
 router.get("/", charges.list);
 router.post("/", charges.create);
-router.put("/cancelation", charges.cancel);
+router.put("/", charges.cancel);
 
 module.exports = router;
