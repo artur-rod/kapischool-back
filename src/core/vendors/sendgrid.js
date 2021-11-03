@@ -14,8 +14,8 @@ const email = {
     };
 
     try {
-      await sgMail.send(msg);
-      return { message: "Email sent" };
+      const mail = await sgMail.send(msg);
+      return mail[0];
     } catch (err) {
       throw err;
     }
@@ -30,8 +30,8 @@ const email = {
     };
 
     try {
-      await sgMail.send(msg);
-      return { message: "Email sent" };
+      const mail = await sgMail.send(msg);
+      return mail[0];
     } catch (err) {
       throw err;
     }

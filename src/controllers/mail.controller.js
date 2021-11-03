@@ -4,8 +4,8 @@ const sentryError = require("../core/error-handler");
 const mailController = {
   registration: async (req, res) => {
     try {
-      const registrationMail = await email.registration(req.body);
-      res.send(registrationMail);
+      await email.registration(req.body);
+      res.status(204).send();
     } catch (err) {
       await sentryError(err);
       res.status(err.code).send({
@@ -18,8 +18,8 @@ const mailController = {
   },
   purchase: async (req, res) => {
     try {
-      const purchaseMail = await email.purchase(req.body);
-      res.send(purchaseMail);
+      await email.purchase(req.body);
+      res.status(204).send();
     } catch (err) {
       await sentryError(err);
       res.status(err.code).send({
