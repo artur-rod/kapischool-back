@@ -5,11 +5,12 @@ const paymentController = {
   create: async (req, res) => {
     try {
       const payment = await payments.create(req.body);
-      await analytics.purchase(req.billing.email);
+      await analytics.purchase(req.body.billing.email);
 
       res.send(payment);
     } catch (err) {
       await sentryError(err);
+      console.log(err);
       res.status(err.status).send({ error: err.details });
     } finally {
       req.transaction.finish();
