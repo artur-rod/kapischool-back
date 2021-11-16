@@ -8,7 +8,8 @@ const chargeController = {
       res.send(listCharges);
     } catch (err) {
       await sentryError(err);
-      res.status(err.status).send({ error: err });
+      console.log(err);
+      res.status(err.data.status).send({ error: err });
     } finally {
       req.transaction.finish();
     }
