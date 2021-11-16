@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const routes = require("./routes");
 require("dotenv").config();
 
@@ -21,5 +21,7 @@ app.use("/payment", routes.payment);
 app.use("/email", routes.email);
 
 app.use("/address", routes.address);
+
+app.use("/analytics", routes.analytics);
 
 app.listen(process.env.SERVER_PORT);

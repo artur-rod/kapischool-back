@@ -1,10 +1,12 @@
-const { payments } = require("../core/services");
+const { payments, analytics } = require("../core/services");
 const sentryError = require("../core/error-handler");
 
 const paymentController = {
   create: async (req, res) => {
     try {
       const payment = await payments.create(req.body);
+      await analytics.purchase(req.billing.email);
+
       res.send(payment);
     } catch (err) {
       await sentryError(err);

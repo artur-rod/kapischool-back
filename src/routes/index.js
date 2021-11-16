@@ -11,6 +11,8 @@ const email = require("./email");
 
 const address = require("./address");
 
+const analytics = require("./analytics");
+
 module.exports = {
   admin,
   user,
@@ -21,4 +23,5 @@ module.exports = {
   payment,
   email,
   address,
+  analytics,
 };

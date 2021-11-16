@@ -3,9 +3,8 @@ const sentryError = require("../core/error-handler");
 
 const balanceController = {
   list: async (req, res) => {
-    const showBalance = await balance.list();
-
     try {
+      const showBalance = await balance.list();
       res.send(showBalance);
     } catch (err) {
       await sentryError(err);

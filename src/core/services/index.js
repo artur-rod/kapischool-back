@@ -11,6 +11,8 @@ const emails = require("./mail/emails");
 
 const address = require("./address/postCode");
 
+const analytics = require("./analytics");
+
 module.exports = {
   balance,
   charges,
@@ -21,4 +23,5 @@ module.exports = {
   profile,
   emails,
   address,
+  analytics,
 };
